@@ -1,0 +1,115 @@
+﻿@model UserFormViewModel
+
+@{
+    ViewData["Title"] = $"{(!string.IsNullOrEmpty(Model?.Id) ? "Edit" : "Add")} User";
+}
+
+<div class="alert bg-light-primary border border-primary border-3 border-dashed d-flex flex-column flex-sm-row w-100 p-5 mb-10">
+    <!--begin::Icon-->
+    <!--begin::Svg Icon | path: icons/duotune/communication/com003.svg-->
+    <span class="svg-icon svg-icon-2hx svg-icon-primary me-4 mb-5 mb-sm-0">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 2.01 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z" />
+        </svg>
+       </span>
+    <!--end::Svg Icon-->
+    <!--end::Icon-->
+    <!--begin::Content-->
+    <div class="d-flex flex-column pe-0 pe-sm-10 align-self-center">
+        <h5 class="mb-1">@(!string.IsNullOrEmpty(Model?.Id) ? "Edit" : "Add") User</h5>
+    </div>
+    <!--end::Content-->
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="post" asp-controller="Users" enctype="multipart/form-data">
+            @if (!string.IsNullOrEmpty(Model?.Id))
+            {
+                <input type="hidden" asp-for="Id" />
+            }
+            <div class="row">
+                <div class="col-4">
+                    <div class="mb-5">
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" placeholder="Full Name" asp-for="FullName" />
+                            <label asp-for="FullName"></label>
+                        </div>
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <div class="mb-5">
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" placeholder="UserName" asp-for="UserName" />
+                            <label asp-for="UserName"></label>
+                        </div>
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <div class="mb-5">
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" placeholder="Email" asp-for="Email" />
+                            <label asp-for="Email"></label>
+                        </div>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            @if(string.IsNullOrEmpty(Model?.Id))
+            {
+            <div class="row">
+                <div class="col-4">
+                    <div class="mb-5">
+                        <div class="form-floating mb-2">
+                            <input type="password" class="form-control" placeholder="Password" asp-for="Password" />
+                            <label asp-for="Password"></label>
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <div class="mb-5">
+                        <div class="form-floating mb-2">
+                            <input type="password" class="form-control" placeholder="Confirm Password" asp-for="ConfirmPassword" />
+                            <label asp-for="ConfirmPassword"></label>
+                        </div>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            }
+            <div class="row">
+                <div class="col-4">
+                    <div class="mb-5">
+                        <div class="mb-2">
+                            <select class="form-select js-select2" data-placeholder="Select Role" asp-for="SelectedRoles" asp-items="@Model?.Roles">
+                                <option value="">Select Role</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="SelectedRoles" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <span class="indicator-label">
+                    Save
+                </span>
+                <span class="indicator-progress">
+                    Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </span>
+            </button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
